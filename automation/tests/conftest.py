@@ -44,7 +44,7 @@ MOCK_CONFIG = config.Config(
 )
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def mock_config():
     with mock.patch(f"{config.__name__}.Config") as mock_config:
         mock_config.load.return_value = MOCK_CONFIG
