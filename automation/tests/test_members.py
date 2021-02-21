@@ -7,7 +7,7 @@ from ..functions import members
 #########
 
 
-def test_on_new(mock_slack_client, mock_sendgrid_client):
+def test_on_new(mock_slack_client, mock_sendgrid_client, mock_config):
     test_member = get_random_member()
     test_slack_user = get_random_slack_user_from_member(test_member)
 

@@ -7,6 +7,7 @@ import logging
 import pytest
 from unittest import mock
 
+from .. import config
 from ..utils import slack, airtable
 
 #########
@@ -23,6 +24,31 @@ def _setup_logging(caplog):
 #########
 # MOCKS #
 #########
+
+
+MOCK_CONFIG = config.Config(
+    **{
+        "airtable": {
+            "base_id": "",
+            "api_key": "",
+            "table_names": {"inbound": "", "volunteer": ""},
+        },
+        "slack": {
+            "api_key": "",
+            "test_user_email": "",
+            "test_user_id": "",
+        },
+        "sendgrid": {"api_key": "", "from_email": "", "from_domain": ""},
+        "google_cloud": {"project_id": ""},
+    }
+)
+
+
+@pytest.fixture
+def mock_config():
+    with mock.patch(f"{config.__name__}.Config") as mock_config:
+        mock_config.load.return_value = MOCK_CONFIG
+        yield mock_config
 
 
 @pytest.fixture
